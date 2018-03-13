@@ -135,12 +135,18 @@ type
   COIN_LPITER_CB* = proc (IterCount: cint; ObjectValue: cdouble; IsFeasible: cint; InfeasValue: cdouble; UserParam: pointer): cint
   COIN_MIPNODE_CB* = proc (IterCount: cint; MipNodeCount: cint; BestBound: cdouble; BestInteger: cdouble; IsMipImproved: cint; UserParam: pointer): cint
 
-proc initSolver*(LicenseStr: cstring): cint {.cdecl, importc: "CoinInitSolver", dynlib: libCoinMP.}
-proc freeSolver*(): cint {.cdecl, importc: "CoinFreeSolver", dynlib: libCoinMP.}
-proc getSolverName*(): cstring {.cdecl, importc: "CoinGetSolverName", dynlib: libCoinMP.}
-proc getSolverNameBuf*(SolverName: cstring; buflen: cint): cint {.cdecl, importc: "CoinGetSolverNameBuf", dynlib: libCoinMP.}
-proc getVersionStr*(): cstring {.cdecl, importc: "CoinGetVersionStr", dynlib: libCoinMP.}
-proc getVersionStrBuf*(VersionStr: cstring; buflen: cint): cint {.cdecl, importc: "CoinGetVersionStrBuf", dynlib: libCoinMP.}
+proc initSolver(LicenseStr: cstring): cint {.cdecl, importc: "CoinInitSolver", dynlib: libCoinMP.}
+proc initSolver*(LicenseStr: string): int = int(initSolver(LicenseStr.cstring))
+proc freeSolver(): cint {.cdecl, importc: "CoinFreeSolver", dynlib: libCoinMP.}
+proc freeSolver*(): int = int(freeSolver())
+proc getSolverName(): cstring {.cdecl, importc: "CoinGetSolverName", dynlib: libCoinMP.}
+proc getSolverName*(): string = $getSolverName()
+proc getSolverNameBuf(SolverName: cstring; buflen: cint): cint {.cdecl, importc: "CoinGetSolverNameBuf", dynlib: libCoinMP.}
+proc getSolverNameBuf*(SolverName: string; buflen: int): int = int(getSolverNameBuf(SolverName.cstring, buflen.cint))
+proc getVersionStr(): cstring {.cdecl, importc: "CoinGetVersionStr", dynlib: libCoinMP.}
+proc getVersionStr*(): string = $getVersionStr()
+proc getVersionStrBuf(VersionStr: cstring; buflen: cint): cint {.cdecl, importc: "CoinGetVersionStrBuf", dynlib: libCoinMP.}
+proc getVersionStrBuf*(VersionStr: string; buflen: int): int = int(getVersionStrBuf(VersionStr.cstring, buflen.cint))
 proc getVersion*(): cdouble {.cdecl, importc: "CoinGetVersion", dynlib: libCoinMP.}
 proc getFeatures*(): cint {.cdecl, importc: "CoinGetFeatures", dynlib: libCoinMP.}
 proc getMethods*(): cint {.cdecl, importc: "CoinGetMethods", dynlib: libCoinMP.}
