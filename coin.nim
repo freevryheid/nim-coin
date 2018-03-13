@@ -147,7 +147,8 @@ proc getVersionStr(): cstring {.cdecl, importc: "CoinGetVersionStr", dynlib: lib
 proc getVersionStr*(): string = $getVersionStr()
 proc getVersionStrBuf(VersionStr: cstring; buflen: cint): cint {.cdecl, importc: "CoinGetVersionStrBuf", dynlib: libCoinMP.}
 proc getVersionStrBuf*(VersionStr: string; buflen: int): int = int(getVersionStrBuf(VersionStr.cstring, buflen.cint))
-proc getVersion*(): cdouble {.cdecl, importc: "CoinGetVersion", dynlib: libCoinMP.}
+proc getVersion(): cdouble {.cdecl, importc: "CoinGetVersion", dynlib: libCoinMP.}
+proc getVersion*(): double = double(getVersion())
 proc getFeatures*(): cint {.cdecl, importc: "CoinGetFeatures", dynlib: libCoinMP.}
 proc getMethods*(): cint {.cdecl, importc: "CoinGetMethods", dynlib: libCoinMP.}
 proc getInfinity*(): cdouble {.cdecl, importc: "CoinGetInfinity", dynlib: libCoinMP.}
